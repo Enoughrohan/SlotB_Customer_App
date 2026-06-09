@@ -7,13 +7,9 @@
       "android": {
         "buildType": "apk"
       },
-      "prebuildCommand": "npm install"
-    },
-    "production": {
-      "android": {
-        "buildType": "apk"
-      },
-      "prebuildCommand": "npm install"
+      "env": {
+        "EXPO_USE_METRO_WORKSPACE_ROOT": "1"
+      }
     }
   }
 }
