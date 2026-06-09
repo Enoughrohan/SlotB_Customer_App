@@ -9,14 +9,14 @@ const { width } = Dimensions.get('window');
 const BLUE = '#1A47E8';
 
 const CATEGORIES = [
-  { id: '1', name: "Women's\nParlour", image: require('../../assets/images/women_parlour.jpg'), screen: 'WomensSalon' },
-  { id: '2', name: "Men's\nSalon", image: require('../../assets/images/mens_salon.jpg'), screen: 'MensSalon' },
-  { id: '3', name: 'Cleaning', image: require('../../assets/images/cleaning.jpg'), screen: 'ServiceDetail' },
-  { id: '4', name: 'AC\nRepair', image: require('../../assets/images/ac_repair.jpg'), screen: 'ServiceDetail' },
-  { id: '5', name: 'Appliance\nRepair', image: require('../../assets/images/appliance_repair.jpg'), screen: 'ServiceDetail' },
-  { id: '6', name: 'Plumber', image: require('../../assets/images/plumber.jpg'), screen: 'ServiceDetail' },
-  { id: '7', name: 'Electrician', image: require('../../assets/images/electrician.jpg'), screen: 'ServiceDetail' },
-  { id: '8', name: 'Carpenter', image: require('../../assets/images/carpenter.jpg'), screen: 'ServiceDetail' },
+  { id: '1', name: "Women's\nParlour", image: require('../assets/images/women_parlour.jpg'), screen: 'WomensSalon' },
+  { id: '2', name: "Men's\nSalon", image: require('../assets/images/mens_salon.jpg'), screen: 'MensSalon' },
+  { id: '3', name: 'Cleaning', image: require('../assets/images/cleaning.jpg'), screen: 'ServiceDetail' },
+  { id: '4', name: 'AC\nRepair', image: require('../assets/images/ac_repair.jpg'), screen: 'ServiceDetail' },
+  { id: '5', name: 'Appliance\nRepair', image: require('../assets/images/appliance_repair.jpg'), screen: 'ServiceDetail' },
+  { id: '6', name: 'Plumber', image: require('../assets/images/pg'), screen: 'ServiceDetail' },
+  { id: '7', name: 'Electrician', image: require('../assets/images/electrician.jpg'), screen: 'ServiceDetail' },
+  { id: '8', name: 'Carpenter', image: require('../assets/images/carpenter.jpg'), screen: 'ServiceDetail' },
 ];
 
 const BANNERS = [
