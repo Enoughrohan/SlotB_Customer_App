@@ -1,6 +1,7 @@
 {
   "name": "SlotBCustomerApp",
   "displayName": "SlotB Customer App",
+  "slug": "slotb",
   "extra": {
     "eas": {
       "projectId": "48609113-bb88-46c7-8352-8d739f2a791c"
