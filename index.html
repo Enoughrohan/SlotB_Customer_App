@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SlotB Customer App</title>
+    <script>
+      window.addEventListener('error', function(e) {
+        console.log("GLOBAL ERROR:", e.message, "in", e.filename, "line", e.lineno);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        console.log("UNHANDLED REJECTION:", e.reason);
+      });
+    </script>
+    <style>
+      /* Basic reset for react-native-web app layout */
+      html, body, #root {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #F8FAFF;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      #root {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      console.log("Inline HTML script executed!");
+    </script>
+    <script type="module" src="/web-entry.js"></script>
+  </body>
+</html>

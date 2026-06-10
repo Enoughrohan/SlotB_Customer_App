@@ -6,18 +6,27 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import womenParlour from '../../assets/images/women_parlour.jpg';
+import mensSalon from '../../assets/images/mens_salon.jpg';
+import cleaning from '../../assets/images/cleaning.jpg';
+import acRepair from '../../assets/images/ac_repair.jpg';
+import applianceRepair from '../../assets/images/appliance_repair.jpg';
+import plumber from '../../assets/images/plumber.jpg';
+import electrician from '../../assets/images/electrician.jpg';
+import carpenter from '../../assets/images/carpenter.jpg';
+
 const { width } = Dimensions.get('window');
 const BLUE = '#1A47E8';
 
 const CATEGORIES = [
-  { id:'1', name:"Women's\nParlour", image: require('../assets/images/women_parlour.jpg'), screen:'WomensSalon' },
-  { id:'2', name:"Men's\nSalon",    image: require('../assets/images/mens_salon.jpg'),    screen:'MensSalon' },
-  { id:'3', name:'Cleaning',        image: require('../assets/images/cleaning.jpg'),       screen:'ServiceDetail' },
-  { id:'4', name:'AC\nRepair',      image: require('../assets/images/ac_repair.jpg'),      screen:'ServiceDetail' },
-  { id:'5', name:'Appliance\nRepair',image: require('../assets/images/appliance_repair.jpg'), screen:'ServiceDetail' },
-  { id:'6', name:'Plumber',         image: require('../assets/images/plumber.jpg'),        screen:'ServiceDetail' },
-  { id:'7', name:'Electrician',     image: require('../assets/images/electrician.jpg'),    screen:'ServiceDetail' },
-  { id:'8', name:'Carpenter',       image: require('../assets/images/carpenter.jpg'),      screen:'ServiceDetail' },
+  { id:'1', name:"Women's\nParlour", image: womenParlour, screen:'WomensSalon' },
+  { id:'2', name:"Men's\nSalon",    image: mensSalon,    screen:'MensSalon' },
+  { id:'3', name:'Cleaning',        image: cleaning,       screen:'ServiceDetail' },
+  { id:'4', name:'AC\nRepair',      image: acRepair,      screen:'ServiceDetail' },
+  { id:'5', name:'Appliance\nRepair',image: applianceRepair, screen:'ServiceDetail' },
+  { id:'6', name:'Plumber',         image: plumber,        screen:'ServiceDetail' },
+  { id:'7', name:'Electrician',     image: electrician,    screen:'ServiceDetail' },
+  { id:'8', name:'Carpenter',       image: carpenter,      screen:'ServiceDetail' },
 ];
 
 const BANNERS = [

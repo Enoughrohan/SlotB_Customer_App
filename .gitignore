@@ -3,3 +3,9 @@ android/build/
 android/app/build/
 .gradle/
 *.keystore
+.idea/
+.kotlin/
+dist/
+build/
+.DS_Store
+*.log
