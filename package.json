@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
-    "web": "vite --port 3000 --host"
+    "web": "vite --port 3000 --host",
+    "build": "vite build"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^3.1.1",
