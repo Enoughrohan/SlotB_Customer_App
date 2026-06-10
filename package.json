@@ -36,9 +36,7 @@
     "vite": "^5.4.11"
   },
   "overrides": {
-    "react-native-web": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    }
+    "react": "$react",
+    "react-dom": "$react-dom"
   }
 }
