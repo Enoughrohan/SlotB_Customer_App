@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, Dimensions, StatusBar } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const { width, height } = Dimensions.get('window');
 const BLUE = '#1A47E8';
 
@@ -36,9 +37,9 @@ export default function SplashScreen({ navigation }: any) {
         Trusted Services. Happy Homes.
       </Animated.Text>
       <Animated.View style={[s.icons, { opacity: iconsOp }]}>
-        {['🧹','🔌','🔧','🚰','🎨'].map((icon, i) => (
+        {['vacuum', 'flash', 'wrench', 'water-pump', 'palette'].map((icon, i) => (
           <View key={i} style={s.iconCircle}>
-            <Text style={{ fontSize: 20 }}>{icon}</Text>
+            <Icon name={icon} size={22} color="#fff" />
           </View>
         ))}
       </Animated.View>

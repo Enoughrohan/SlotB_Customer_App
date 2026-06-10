@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const BLUE = '#1A47E8';
 
 const TABS = ['All','Upcoming','In Progress','Completed','Cancelled'];
 const BOOKINGS = [
-  { id:'1', name: "Women's Hair Spa", provider: 'Lakme Salon, Begusarai', date: '12 May 2025, Mon', time: '05:30 PM', price: 699, bookingId: '#SLTB12567', status: 'Upcoming', statusColor: '#22C55E', emoji: '💆' },
-  { id:'2', name: 'Electrician Service', provider: 'Sharma Electrical Services', date: '11 May 2025, Sun', time: '11:00 AM', price: 249, bookingId: '#SLTB12489', status: 'In Progress', statusColor: '#F59E0B', emoji: '⚡' },
-  { id:'3', name: 'Home Cleaning', provider: 'Clean & Shine Services', date: '08 May 2025, Thu', time: '10:00 AM', price: 799, bookingId: '#SLTB12234', status: 'Completed', statusColor: '#1A47E8', emoji: '🧹' },
-  { id:'4', name: 'Geyser Repair', provider: 'QuickFix Appliances', date: '05 May 2025, Mon', time: '04:00 PM', price: 399, bookingId: '#SLTB12109', status: 'Completed', statusColor: '#1A47E8', emoji: '🔧' },
-  { id:'5', name: 'Pest Control', provider: 'SafeHome Pest Control', date: '02 May 2025, Fri', time: '02:00 PM', price: 699, bookingId: '#SLTB11967', status: 'Cancelled', statusColor: '#EF4444', emoji: '🐛' },
+  { id:'1', name: "Women's Hair Spa", provider: 'Lakme Salon, Begusarai', date: '12 May 2025, Mon', time: '05:30 PM', price: 699, bookingId: '#SLTB12567', status: 'Upcoming', statusColor: '#22C55E', emoji: 'spa-outline' },
+  { id:'2', name: 'Electrician Service', provider: 'Sharma Electrical Services', date: '11 May 2025, Sun', time: '11:00 AM', price: 249, bookingId: '#SLTB12489', status: 'In Progress', statusColor: '#F59E0B', emoji: 'flash' },
+  { id:'3', name: 'Home Cleaning', provider: 'Clean & Shine Services', date: '08 May 2025, Thu', time: '10:00 AM', price: 799, bookingId: '#SLTB12234', status: 'Completed', statusColor: '#1A47E8', emoji: 'vacuum' },
+  { id:'4', name: 'Geyser Repair', provider: 'QuickFix Appliances', date: '05 May 2025, Mon', time: '04:00 PM', price: 399, bookingId: '#SLTB12109', status: 'Completed', statusColor: '#1A47E8', emoji: 'wrench' },
+  { id:'5', name: 'Pest Control', provider: 'SafeHome Pest Control', date: '02 May 2025, Fri', time: '02:00 PM', price: 699, bookingId: '#SLTB11967', status: 'Cancelled', statusColor: '#EF4444', emoji: 'bug-outline' },
 ];
 
 export default function MyBookingsScreen({ navigation }: any) {
@@ -22,7 +23,7 @@ export default function MyBookingsScreen({ navigation }: any) {
     <TouchableOpacity style={s.card} activeOpacity={0.9}>
       <View style={s.cardMain}>
         <View style={[s.iconCircle, { backgroundColor: BLUE + '15' }]}>
-          <Text style={{ fontSize: 22 }}>{item.emoji}</Text>
+          <Icon name={item.emoji} size={24} color={BLUE} />
         </View>
         <View style={{ flex: 1 }}>
           <View style={s.cardTop}>
@@ -33,8 +34,14 @@ export default function MyBookingsScreen({ navigation }: any) {
           </View>
           <Text style={s.cardProvider}>{item.provider}</Text>
           <View style={s.cardMeta}>
-            <Text style={s.metaText}>📅 {item.date}</Text>
-            <Text style={s.metaText}>⏰ {item.time}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginRight: 12 }}>
+              <Icon name="calendar-blank" size={13} color="#64748B" />
+              <Text style={s.metaText}>{item.date}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+              <Icon name="clock-outline" size={13} color="#64748B" />
+              <Text style={s.metaText}>{item.time}</Text>
+            </View>
           </View>
           <View style={s.cardBottom}>
             <View>
@@ -52,7 +59,7 @@ export default function MyBookingsScreen({ navigation }: any) {
             )}
           </View>
         </View>
-        <Text style={{ fontSize: 16, color: '#94A3B8', alignSelf: 'flex-start', marginTop: 2 }}>›</Text>
+        <Icon name="chevron-right" size={18} color="#94A3B8" style={{ alignSelf: 'flex-start', marginTop: 2 }} />
       </View>
     </TouchableOpacity>
   );
@@ -61,9 +68,13 @@ export default function MyBookingsScreen({ navigation }: any) {
     <View style={[s.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={BLUE} />
       <View style={s.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ color: '#fff', fontSize: 18 }}>←</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={20} color="#fff" />
+        </TouchableOpacity>
         <Text style={s.headerTitle}>My Bookings</Text>
-        <TouchableOpacity><Text style={{ color: '#fff', fontSize: 18 }}>🔍</Text></TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="magnify" size={20} color="#fff" />
+        </TouchableOpacity>
       </View>
 
       {/* Tabs */}
@@ -79,12 +90,16 @@ export default function MyBookingsScreen({ navigation }: any) {
 
       {/* Info banner */}
       <View style={s.infoBanner}>
-        <View style={s.infoIcon}><Text style={{ fontSize: 16 }}>📋</Text></View>
+        <View style={s.infoIcon}>
+          <Icon name="clipboard-list" size={18} color="#fff" />
+        </View>
         <View style={{ flex: 1 }}>
           <Text style={s.infoTitle}>Manage all your service bookings in one place</Text>
           <Text style={s.infoSub}>Track, reschedule or cancel your bookings easily.</Text>
         </View>
-        <TouchableOpacity><Text style={{ fontSize: 16, color: '#94A3B8' }}>✕</Text></TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="close" size={18} color="#94A3B8" />
+        </TouchableOpacity>
       </View>
 
       <FlatList data={filtered} keyExtractor={i => i.id} renderItem={renderItem}
@@ -93,12 +108,17 @@ export default function MyBookingsScreen({ navigation }: any) {
 
       {/* Support footer */}
       <View style={s.supportBar}>
-        <Text style={{ fontSize: 16 }}>🎧</Text>
+        <Icon name="headphones" size={20} color={BLUE} style={{ marginRight: 4 }} />
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 12, fontWeight: '600', color: '#0F172A' }}>Need help with your booking?</Text>
           <Text style={{ fontSize: 11, color: '#64748B' }}>Our support team is here to help you.</Text>
         </View>
-        <TouchableOpacity style={s.supportBtn}><Text style={{ fontSize: 12, color: BLUE, fontWeight: '600' }}>🎧 Contact Support</Text></TouchableOpacity>
+        <TouchableOpacity style={s.supportBtn}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+            <Icon name="headphones" size={14} color={BLUE} />
+            <Text style={{ fontSize: 12, color: BLUE, fontWeight: '600' }}>Contact Support</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

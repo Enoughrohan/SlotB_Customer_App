@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const { width } = Dimensions.get('window');
 const BLUE = '#1A47E8';
 
 const SERVICES_MEN = [
-  { id:'1', name:'Haircut', price:199, duration:'30 min' },
-  { id:'2', name:'Beard Styling', price:149, duration:'20 min' },
-  { id:'3', name:'Hair Spa', price:499, duration:'45 min' },
-  { id:'4', name:'Head Massage', price:299, duration:'30 min' },
+  { id: '1', name: 'Haircut', price: 199, duration: '30 min' },
+  { id: '2', name: 'Beard Styling', price: 149, duration: '20 min' },
+  { id: '3', name: 'Hair Spa', price: 499, duration: '45 min' },
+  { id: '4', name: 'Head Massage', price: 299, duration: '30 min' },
 ];
 const SERVICES_WOMEN = [
-  { id:'1', name:'Hair Wash', price:249, duration:'30 min' },
-  { id:'2', name:'Hair Cut & Style', price:499, duration:'45 min' },
-  { id:'3', name:'Gold Facial', price:999, duration:'60 min' },
-  { id:'4', name:'Manicure', price:299, duration:'40 min' },
+  { id: '1', name: 'Hair Wash', price: 249, duration: '30 min' },
+  { id: '2', name: 'Hair Cut & Style', price: 499, duration: '45 min' },
+  { id: '3', name: 'Gold Facial', price: 999, duration: '60 min' },
+  { id: '4', name: 'Manicure', price: 299, duration: '40 min' },
 ];
 
 export default function SalonDetailScreen({ navigation, route }: any) {
@@ -32,15 +33,24 @@ export default function SalonDetailScreen({ navigation, route }: any) {
 
       {/* Hero Image */}
       <View style={s.heroImg}>
-        <Text style={s.heroEmoji}>{isMens ? '✂️' : '💅'}</Text>
+        <Icon name={isMens ? 'content-cut' : 'face-woman-shimmer'} size={72} color={BLUE} style={{ opacity: 0.15 }} />
         <TouchableOpacity style={s.backBtn} onPress={() => navigation.goBack()}>
-          <Text style={{ fontSize: 16, color: '#0F172A', fontWeight: '700' }}>←</Text>
+          <Icon name="arrow-left" size={20} color="#0F172A" />
         </TouchableOpacity>
         <View style={s.heroActions}>
-          <TouchableOpacity style={s.heroActionBtn}><Text style={{ fontSize: 16 }}>♡</Text></TouchableOpacity>
-          <TouchableOpacity style={s.heroActionBtn}><Text style={{ fontSize: 16 }}>⬆</Text></TouchableOpacity>
+          <TouchableOpacity style={s.heroActionBtn}>
+            <Icon name="heart-outline" size={20} color="#0F172A" />
+          </TouchableOpacity>
+          <TouchableOpacity style={s.heroActionBtn}>
+            <Icon name="share-variant-outline" size={20} color="#0F172A" />
+          </TouchableOpacity>
         </View>
-        <View style={s.photoCount}><Text style={{ fontSize: 11, color: '#fff' }}>📷 1/12</Text></View>
+        <View style={s.photoCount}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+            <Icon name="image-multiple-outline" size={13} color="#fff" />
+            <Text style={{ fontSize: 11, color: '#fff', fontWeight: '600' }}>1/12</Text>
+          </View>
+        </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -50,44 +60,52 @@ export default function SalonDetailScreen({ navigation, route }: any) {
             <View style={{ flex: 1 }}>
               <Text style={s.salonName}>{salon.name}</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
-                <View style={s.ratingBadge}><Text style={s.ratingText}>★ {salon.rating}</Text></View>
+                <View style={s.ratingBadge}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                    <Icon name="star" size={12} color="#166534" />
+                    <Text style={s.ratingText}>{salon.rating}</Text>
+                  </View>
+                </View>
                 <Text style={{ fontSize: 12, color: '#64748B' }}>({salon.reviews})</Text>
                 <Text style={{ fontSize: 12, color: BLUE, fontWeight: '600' }}>• {isMens ? "Men's Salon" : "Women's Salon"}</Text>
               </View>
             </View>
             <View style={s.openBadge}>
-              <Text style={s.openDot}>●</Text>
+              <Icon name="circle" size={8} color="#22C55E" style={{ marginRight: 2 }} />
               <View>
                 <Text style={s.openText}>Open</Text>
                 <Text style={s.openTime}>10:00 AM – 9:00 PM</Text>
               </View>
             </View>
           </View>
-          <Text style={s.address}>📍 {salon.address}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 4, marginBottom: 14 }}>
+            <Icon name="map-marker-outline" size={16} color="#64748B" style={{ marginTop: 1 }} />
+            <Text style={[s.address, { marginBottom: 0, flex: 1 }]}>{salon.address}</Text>
+          </View>
 
           {/* Stats row */}
           <View style={s.statsRow}>
             <View style={s.statItem}>
-              <Text style={s.statIcon}>👥</Text>
+              <Icon name="account-group-outline" size={20} color="#22C55E" style={{ marginBottom: 4 }} />
               <Text style={s.statNum}>{salon.queue}</Text>
               <Text style={s.statLabel}>Customers{'\n'}Ahead</Text>
             </View>
             <View style={s.statDivider} />
             <View style={s.statItem}>
-              <Text style={s.statIcon}>⏰</Text>
+              <Icon name="clock-outline" size={20} color={BLUE} style={{ marginBottom: 4 }} />
               <Text style={[s.statNum, { color: BLUE }]}>{salon.wait} min</Text>
               <Text style={s.statLabel}>Estimated{'\n'}Wait</Text>
             </View>
             <View style={s.statDivider} />
             <View style={s.statItem}>
-              <Text style={s.statIcon}>📅</Text>
-              <Text style={[s.statNum, { color: '#8B5CF6' }]}>Today, {salon.nextSlot}</Text>
+              <Icon name="calendar-clock-outline" size={20} color="#8B5CF6" style={{ marginBottom: 4 }} />
+              <Text style={[s.statNum, { color: '#8B5CF6' }]}>{salon.nextSlot}</Text>
               <Text style={s.statLabel}>Next{'\n'}Slot</Text>
             </View>
             <View style={s.statDivider} />
             <View style={s.statItem}>
-              <Text style={s.statIcon}>⭐</Text>
-              <Text style={s.statNum}>{salon.rating}</Text>
+              <Icon name="star-outline" size={20} color="#F59E0B" style={{ marginBottom: 4 }} />
+              <Text style={[s.statNum, { color: '#F59E0B' }]}>{salon.rating}</Text>
               <Text style={s.statLabel}>{salon.reviews}{'\n'}Reviews</Text>
             </View>
           </View>
@@ -100,13 +118,16 @@ export default function SalonDetailScreen({ navigation, route }: any) {
                 {isMens ? 'Be 4 U Salon is a premium men\'s grooming destination offering top-notch haircuts, styling, beard services, and skincare treatments in a relaxing environment.'
                   : 'Naturals Salon offers a wide range of beauty and wellness services for hair, skin, nails and more. Experience luxury and care from our expert team.'}
               </Text>
-              <Text style={{ fontSize: 13, color: BLUE, fontWeight: '600' }}>Read More ▾</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2, marginTop: 4 }}>
+                <Text style={{ fontSize: 13, color: BLUE, fontWeight: '600' }}>Read More</Text>
+                <Icon name="chevron-down" size={16} color={BLUE} />
+              </View>
             </View>
             <View style={s.featuresBlock}>
               {['Hygienic Tools', 'Expert Staff', 'Premium Products', 'Clean & Safe'].map((f, i) => (
                 <View key={i} style={s.featureRow}>
-                  <Text style={{ fontSize: 12 }}>🛡</Text>
-                  <Text style={{ fontSize: 11, color: '#64748B' }}>{f}</Text>
+                  <Icon name="shield-check-outline" size={12} color="#22C55E" />
+                  <Text style={{ fontSize: 11, color: '#64748B', fontWeight: '500' }}>{f}</Text>
                 </View>
               ))}
             </View>
@@ -130,12 +151,14 @@ export default function SalonDetailScreen({ navigation, route }: any) {
               {services.map(sv => (
                 <TouchableOpacity key={sv.id} style={s.serviceCard} activeOpacity={0.85}>
                   <View style={s.serviceImgBox}>
-                    <Text style={{ fontSize: 28, opacity: 0.5 }}>{isMens ? '✂️' : '💆'}</Text>
+                    <Icon name={isMens ? 'content-cut' : 'spa-outline'} size={32} color={BLUE} style={{ opacity: 0.6 }} />
                   </View>
                   <Text style={s.serviceName}>{sv.name}</Text>
                   <View style={s.serviceBottom}>
                     <Text style={s.servicePrice}>₹{sv.price}</Text>
-                    <TouchableOpacity style={s.addBtn}><Text style={{ fontSize: 18, color: BLUE }}>⊕</Text></TouchableOpacity>
+                    <TouchableOpacity style={s.addBtn}>
+                      <Icon name="plus-circle" size={22} color={BLUE} />
+                    </TouchableOpacity>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -145,19 +168,25 @@ export default function SalonDetailScreen({ navigation, route }: any) {
 
         {/* Live queue notice */}
         <View style={s.queueNotice}>
-          <Text style={{ fontSize: 18 }}>🔔</Text>
+          <Icon name="bell-ring-outline" size={20} color="#22C55E" />
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 13, fontWeight: '700', color: '#0F172A' }}>Live Queue Updates</Text>
             <Text style={{ fontSize: 11, color: '#64748B' }}>We'll notify you when it's your turn.</Text>
           </View>
-          <TouchableOpacity><Text style={{ fontSize: 12, color: BLUE, fontWeight: '600' }}>How it works? ⓘ</Text></TouchableOpacity>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+            <Text style={{ fontSize: 12, color: BLUE, fontWeight: '600' }}>How it works?</Text>
+            <Icon name="information-outline" size={14} color={BLUE} />
+          </TouchableOpacity>
         </View>
         <View style={{ height: 80 }} />
       </ScrollView>
 
       {/* Sticky CTA */}
       <View style={[s.cta, { paddingBottom: insets.bottom + 8 }]}>
-        <Text style={{ fontSize: 11, color: '#64748B' }}>🛡 Fast, Easy & Secure Booking</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <Icon name="shield-check" size={13} color="#22C55E" />
+          <Text style={{ fontSize: 11, color: '#64748B', fontWeight: '500' }}>Fast, Easy & Secure Booking</Text>
+        </View>
         <TouchableOpacity style={s.bookBtn} onPress={() => navigation.navigate('TokenBooking', { salon, type })}>
           <Text style={s.bookBtnText}>Book Now</Text>
         </TouchableOpacity>

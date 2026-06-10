@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const BLUE = '#1A47E8';
 
 const METHODS = [
-  { id:'upi', icon:'⚡', label:'UPI', sub:'Pay using any UPI app' },
-  { id:'card', icon:'💳', label:'Debit / Credit Card', sub:'Visa, Mastercard, RuPay' },
-  { id:'paytm', icon:'💙', label:'Paytm', sub:'Pay using your Paytm account' },
-  { id:'gpay', icon:'🌈', label:'Google Pay', sub:'Pay using Google Pay' },
-  { id:'phonepe', icon:'💜', label:'PhonePe', sub:'Pay using PhonePe' },
-  { id:'netbanking', icon:'🏦', label:'Net Banking', sub:'Pay using your bank' },
+  { id:'upi', icon:'flash', label:'UPI', sub:'Pay using any UPI app', color: '#F59E0B' },
+  { id:'card', icon:'credit-card-outline', label:'Debit / Credit Card', sub:'Visa, Mastercard, RuPay', color: BLUE },
+  { id:'paytm', icon:'wallet-outline', label:'Paytm', sub:'Pay using your Paytm account', color: '#0EA5E9' },
+  { id:'gpay', icon:'google', label:'Google Pay', sub:'Pay using Google Pay', color: '#EF4444' },
+  { id:'phonepe', icon:'wallet-giftcard', label:'PhonePe', sub:'Pay using PhonePe', color: '#8B5CF6' },
+  { id:'netbanking', icon:'bank-outline', label:'Net Banking', sub:'Pay using your bank', color: '#10B981' },
 ];
 
 export default function PaymentScreen({ navigation, route }: any) {
@@ -26,7 +27,9 @@ export default function PaymentScreen({ navigation, route }: any) {
     <View style={[s.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View style={s.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ fontSize: 18, color: '#0F172A' }}>←</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={20} color="#0F172A" />
+        </TouchableOpacity>
         <Text style={s.headerTitle}>Payment</Text>
         <View style={{ width: 24 }} />
       </View>
@@ -36,11 +39,19 @@ export default function PaymentScreen({ navigation, route }: any) {
         <View style={s.summaryCard}>
           <Text style={s.summaryTitle}>Booking Summary</Text>
           <View style={s.summaryRow}>
-            <View style={s.summaryIcon}><Text style={{ fontSize: 24 }}>🧹</Text></View>
+            <View style={s.summaryIcon}>
+              <Icon name="vacuum" size={24} color={BLUE} />
+            </View>
             <View style={{ flex: 1 }}>
               <Text style={s.summaryName}>Home Cleaning</Text>
-              <Text style={s.summaryMeta}>📅 18 May 2025, 10:00 AM</Text>
-              <Text style={s.summaryMeta}>📍 Bandra West, Mumbai</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 }}>
+                <Icon name="calendar-blank" size={12} color="#64748B" />
+                <Text style={s.summaryMeta}>18 May 2025, 10:00 AM</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 2 }}>
+                <Icon name="map-marker-outline" size={12} color="#64748B" />
+                <Text style={s.summaryMeta}>Bandra West, Mumbai</Text>
+              </View>
             </View>
             <View>
               <Text style={s.summaryPrice}>₹499</Text>
@@ -56,23 +67,23 @@ export default function PaymentScreen({ navigation, route }: any) {
             <View style={[s.radio, selected === m.id && s.radioActive]}>
               {selected === m.id && <View style={s.radioDot} />}
             </View>
-            <Text style={{ fontSize: 20 }}>{m.icon}</Text>
+            <Icon name={m.icon} size={22} color={m.color} />
             <View style={{ flex: 1 }}>
               <Text style={s.methodLabel}>{m.label}</Text>
               <Text style={s.methodSub}>{m.sub}</Text>
             </View>
-            <Text style={{ fontSize: 16, color: '#94A3B8' }}>›</Text>
+            <Icon name="chevron-right" size={18} color="#94A3B8" />
           </TouchableOpacity>
         ))}
 
         {/* Coupon */}
         <TouchableOpacity style={s.couponRow}>
-          <Text style={{ fontSize: 18 }}>🏷</Text>
+          <Icon name="ticket-percent-outline" size={22} color={BLUE} />
           <View style={{ flex: 1 }}>
             <Text style={s.couponTitle}>Have a coupon?</Text>
             <Text style={s.couponSub}>Apply coupon to get exciting discounts</Text>
           </View>
-          <Text style={{ fontSize: 16, color: '#94A3B8' }}>›</Text>
+          <Icon name="chevron-right" size={18} color="#94A3B8" />
         </TouchableOpacity>
       </ScrollView>
 
@@ -86,7 +97,10 @@ export default function PaymentScreen({ navigation, route }: any) {
           {loading ? <ActivityIndicator color="#fff" /> : <Text style={s.payBtnText}>Pay Now</Text>}
         </TouchableOpacity>
       </View>
-      <Text style={{ textAlign: 'center', fontSize: 11, color: '#94A3B8', paddingBottom: 8 }}>🔒 You will be securely redirected to complete the payment</Text>
+      <View style={{ flexDirection:'row', alignItems:'center', justifyContent:'center', paddingBottom: 8, gap: 4 }}>
+        <Icon name="lock-outline" size={12} color="#94A3B8" />
+        <Text style={{ fontSize: 11, color: '#94A3B8' }}>You will be securely redirected to complete the payment</Text>
+      </View>
     </View>
   );
 }

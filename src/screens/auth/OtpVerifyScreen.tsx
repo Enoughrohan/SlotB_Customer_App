@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, Dimensions, StatusBar, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const BLUE = '#1A47E8';
 
 export default function OtpVerifyScreen({ navigation, route }: any) {
@@ -33,9 +34,11 @@ export default function OtpVerifyScreen({ navigation, route }: any) {
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#fff' }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View style={s.topBar}>
-        <TouchableOpacity style={s.backBtn} onPress={() => navigation.goBack()}><Text style={{ fontSize: 18, color: '#0F172A' }}>←</Text></TouchableOpacity>
+        <TouchableOpacity style={s.backBtn} onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={20} color="#0F172A" />
+        </TouchableOpacity>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-          <Text style={{ fontSize: 13 }}>🛡</Text>
+          <Icon name="shield-check" size={16} color={BLUE} />
           <Text style={{ fontSize: 12, color: BLUE, fontWeight: '600' }}>Secure Verification</Text>
         </View>
       </View>
@@ -43,7 +46,7 @@ export default function OtpVerifyScreen({ navigation, route }: any) {
         <Text style={s.title}>Verify your number</Text>
         <Text style={s.sub}>We've sent a 6-digit OTP to</Text>
         <View style={s.phoneChip}>
-          <Text style={{ fontSize: 14 }}>📞</Text>
+          <Icon name="phone" size={16} color="#64748B" />
           <Text style={{ fontSize: 13, fontWeight: '600', color: '#0F172A', flex: 1 }}>+91 {phone}</Text>
           <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ fontSize: 12, color: BLUE, fontWeight: '700' }}>Change</Text></TouchableOpacity>
         </View>
@@ -53,16 +56,18 @@ export default function OtpVerifyScreen({ navigation, route }: any) {
             <TextInput key={i} ref={r => (refs.current[i] = r)} style={[s.box, otp[i] ? s.boxFilled : null]} value={otp[i]} onChangeText={v => handleChange(v.slice(-1), i)} onKeyPress={e => handleKey(e, i)} keyboardType="number-pad" maxLength={1} autoFocus={i === 0} textAlign="center" selectionColor={BLUE} />
           ))}
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 24 }}>
-          <Text style={{ fontSize: 12, color: '#64748B' }}>🛡 OTP is valid for </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 24, gap: 4 }}>
+          <Icon name="shield-check" size={14} color="#64748B" />
+          <Text style={{ fontSize: 12, color: '#64748B' }}>OTP is valid for </Text>
           <Text style={{ fontSize: 12, color: BLUE, fontWeight: '700' }}>2:00 minutes</Text>
         </View>
         <TouchableOpacity style={[s.btn, !isComplete && s.btnDis]} onPress={handleVerify} disabled={!isComplete}>
           {loading ? <ActivityIndicator color="#fff" /> : <Text style={s.btnText}>Verify & Continue</Text>}
         </TouchableOpacity>
         <View style={s.orRow}><View style={s.orLine} /><Text style={{ fontSize: 12, color: '#64748B' }}>or</Text><View style={s.orLine} /></View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ fontSize: 13, color: '#64748B' }}>↺ Didn't receive OTP? </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+          <Icon name="reload" size={14} color="#64748B" />
+          <Text style={{ fontSize: 13, color: '#64748B' }}>Didn't receive OTP? </Text>
           <TouchableOpacity onPress={() => setTimer(30)} disabled={timer > 0}>
             <Text style={{ fontSize: 13, color: timer > 0 ? '#64748B' : BLUE, fontWeight: '700' }}>{timer > 0 ? `Resend in 00:${String(timer).padStart(2,'0')}` : 'Resend Now'}</Text>
           </TouchableOpacity>

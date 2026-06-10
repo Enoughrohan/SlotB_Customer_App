@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated, Dimensions, StatusBar, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const { width } = Dimensions.get('window');
 const BLUE = '#1A47E8';
 
@@ -28,11 +29,11 @@ export default function LoginScreen({ navigation }: any) {
 
         {/* Illustration */}
         <View style={s.illuBox}>
-          <Text style={[s.floatIcon, { top: 8, left: 12 }]}>📅</Text>
-          <Text style={[s.floatIcon, { top: 8, right: 16 }]}>⏰</Text>
+          <Icon name="calendar-month-outline" size={24} color={BLUE} style={[s.floatIcon, { top: 12, left: 16 }]} />
+          <Icon name="clock-outline" size={24} color="#F97316" style={[s.floatIcon, { top: 12, right: 16 }]} />
           <View style={s.phoneMock}>
             <Text style={{ color: '#fff', fontSize: 10, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>Booking{'\n'}Confirmed!</Text>
-            <View style={s.checkCircle}><Text style={{ color: '#fff', fontSize: 16, fontWeight: '700' }}>✓</Text></View>
+            <View style={s.checkCircle}><Icon name="check" size={16} color="#fff" /></View>
           </View>
         </View>
 
@@ -54,7 +55,7 @@ export default function LoginScreen({ navigation }: any) {
         {/* Continue */}
         <Animated.View style={{ transform: [{ scale }] }}>
           <TouchableOpacity style={s.btn} onPress={handleContinue} onPressIn={onPressIn} onPressOut={onPressOut} activeOpacity={1}>
-            {loading ? <ActivityIndicator color="#fff" /> : <><Text style={s.btnText}>Continue</Text><Text style={s.btnArrow}>→</Text></>}
+            {loading ? <ActivityIndicator color="#fff" /> : <><Text style={s.btnText}>Continue</Text><Icon name="arrow-right" size={18} color="#fff" /></>}
           </TouchableOpacity>
         </Animated.View>
 
@@ -65,12 +66,15 @@ export default function LoginScreen({ navigation }: any) {
 
         {/* Google */}
         <TouchableOpacity style={s.googleBtn}>
-          <Text style={{ fontSize: 18, fontWeight: '800', color: '#4285F4' }}>G</Text>
+          <Icon name="google" size={18} color="#4285F4" />
           <Text style={{ fontSize: 14, fontWeight: '600', color: '#0F172A' }}>Continue with Google</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={{ marginTop: 16, marginBottom: 12 }} onPress={() => navigation.replace('Main')}>
-          <Text style={{ fontSize: 13, color: BLUE, fontWeight: '600', textAlign: 'center' }}>Skip for now →</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+            <Text style={{ fontSize: 13, color: BLUE, fontWeight: '600' }}>Skip for now</Text>
+            <Icon name="arrow-right" size={14} color={BLUE} />
+          </View>
         </TouchableOpacity>
         <Text style={{ fontSize: 11, color: '#64748B', textAlign: 'center' }}>By continuing, you agree to <Text style={{ color: BLUE, fontWeight: '600' }}>Terms</Text> & <Text style={{ color: BLUE, fontWeight: '600' }}>Privacy Policy</Text></Text>
       </ScrollView>

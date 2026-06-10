@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const BLUE = '#1A47E8';
 
 const POPULAR = ['Home Cleaning','Electrician','AC Repair','Plumber','Salon at Home','Pest Control','Deep Cleaning','Car Wash'];
@@ -14,13 +15,17 @@ export default function SearchScreen({ navigation }: any) {
     <View style={[s.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View style={s.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ fontSize: 18, color: '#0F172A' }}>←</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={20} color="#0F172A" />
+        </TouchableOpacity>
         <View style={s.searchBar}>
-          <Text style={{ fontSize: 16 }}>🔍</Text>
+          <Icon name="magnify" size={18} color="#94A3B8" />
           <TextInput style={s.input} placeholder="Search for services, categories or professionals..." placeholderTextColor="#94A3B8" value={query} onChangeText={setQuery} autoFocus />
-          {query ? <TouchableOpacity onPress={() => setQuery('')}><Text style={{ fontSize: 16, color: '#94A3B8' }}>✕</Text></TouchableOpacity> : null}
+          {query ? <TouchableOpacity onPress={() => setQuery('')}><Icon name="close" size={16} color="#94A3B8" /></TouchableOpacity> : null}
         </View>
-        <TouchableOpacity><Text style={{ fontSize: 20 }}>🎤</Text></TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="microphone" size={20} color={BLUE} />
+        </TouchableOpacity>
       </View>
 
       <FlatList
@@ -35,7 +40,7 @@ export default function SearchScreen({ navigation }: any) {
             <View style={s.chipsWrap}>
               {POPULAR.map((p, i) => (
                 <TouchableOpacity key={i} style={s.chip} onPress={() => setQuery(p)}>
-                  <Text style={{ fontSize: 12 }}>↗</Text>
+                  <Icon name="arrow-top-right" size={12} color="#64748B" />
                   <Text style={s.chipText}>{p}</Text>
                 </TouchableOpacity>
               ))}
@@ -50,9 +55,11 @@ export default function SearchScreen({ navigation }: any) {
             </View>
             {RECENT.map((r, i) => (
               <TouchableOpacity key={i} style={s.recentRow} onPress={() => setQuery(r)}>
-                <Text style={{ fontSize: 16 }}>🕐</Text>
+                <Icon name="clock-outline" size={16} color="#64748B" />
                 <Text style={s.recentText}>{r}</Text>
-                <TouchableOpacity><Text style={{ fontSize: 16, color: '#94A3B8' }}>✕</Text></TouchableOpacity>
+                <TouchableOpacity>
+                  <Icon name="close" size={16} color="#94A3B8" />
+                </TouchableOpacity>
               </TouchableOpacity>
             ))}
           </View>

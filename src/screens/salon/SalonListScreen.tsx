@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const { width } = Dimensions.get('window');
 const BLUE = '#1A47E8';
 
@@ -31,38 +32,53 @@ export default function SalonListScreen({ navigation, route }: any) {
     <TouchableOpacity style={s.card} onPress={() => navigation.navigate('SalonDetail', { salon: item, type })} activeOpacity={0.9}>
       {/* Salon image placeholder */}
       <View style={s.imgBox}>
-        <View style={[s.openBadge, { backgroundColor: item.open ? '#22C55E' : '#EF4444' }]}>
-          <Text style={s.openText}>● {item.open ? 'Open' : 'Closed'}</Text>
+        <View style={[s.openBadge, { backgroundColor: item.open ? '#22C55E' : '#EF4444', flexDirection: 'row', alignItems: 'center', gap: 4 }]}>
+          <Icon name="circle" size={8} color="#fff" />
+          <Text style={s.openText}>{item.open ? 'Open' : 'Closed'}</Text>
         </View>
         <View style={[s.statusBadge, { backgroundColor: item.statusColor + '22', borderColor: item.statusColor }]}>
           <Text style={[s.statusText, { color: item.statusColor }]}>{item.status}</Text>
         </View>
-        <Text style={s.imgEmoji}>{isMens ? '✂️' : '💅'}</Text>
+        <Icon name={isMens ? 'content-cut' : 'face-woman-shimmer'} size={52} color={BLUE} style={{ opacity: 0.25 }} />
       </View>
 
       <View style={s.cardBody}>
         <View style={s.cardTop}>
           <Text style={s.salonName}>{item.name}</Text>
-          <View style={s.ratingBadge}><Text style={s.ratingText}>★ {item.rating}</Text></View>
+          <View style={s.ratingBadge}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+              <Icon name="star" size={12} color="#92400E" />
+              <Text style={s.ratingText}>{item.rating}</Text>
+            </View>
+          </View>
         </View>
-        <Text style={s.address} numberOfLines={2}>📍 {item.address}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 4, marginBottom: 10 }}>
+          <Icon name="map-marker-outline" size={14} color="#64748B" style={{ marginTop: 1 }} />
+          <Text style={[s.address, { marginBottom: 0, flex: 1 }]} numberOfLines={2}>{item.address}</Text>
+        </View>
 
         <View style={s.statsRow}>
           <View style={s.statBox}>
-            <Text style={{ fontSize: 15, marginBottom: 2 }}>👥</Text>
+            <Icon name="account-group-outline" size={18} color={BLUE} style={{ marginBottom: 2 }} />
             <Text style={s.statVal}>{item.queue}</Text>
             <Text style={s.statLabel}>Queue</Text>
           </View>
           <View style={s.statBox}>
-            <Text style={{ fontSize: 15, marginBottom: 2 }}>⏰</Text>
+            <Icon name="clock-outline" size={18} color={BLUE} style={{ marginBottom: 2 }} />
             <Text style={s.statVal}>{item.wait} min</Text>
             <Text style={s.statLabel}>Wait Time</Text>
           </View>
           <TouchableOpacity style={s.bookBtn} onPress={() => navigation.navigate('SalonDetail', { salon: item, type })}>
-            <Text style={s.bookBtnText}>Book Now ›</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+              <Text style={s.bookBtnText}>Book Now</Text>
+              <Icon name="chevron-right" size={14} color="#fff" />
+            </View>
           </TouchableOpacity>
         </View>
-        <Text style={s.nextSlot}>📅 Next: <Text style={{ color: BLUE, fontWeight: '700' }}>{item.nextSlot}</Text></Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <Icon name="calendar-clock-outline" size={13} color="#64748B" />
+          <Text style={s.nextSlot}>Next: <Text style={{ color: BLUE, fontWeight: '700' }}>{item.nextSlot}</Text></Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -75,36 +91,45 @@ export default function SalonListScreen({ navigation, route }: any) {
       <View style={s.header}>
         <View style={s.headerTop}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={s.backBtn}>
-            <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>←</Text>
+            <Icon name="arrow-left" size={20} color="#fff" />
           </TouchableOpacity>
           <View>
             <Text style={s.headerTitle}>{isMens ? "Men's Salon" : "Women's Parlour"}</Text>
-            <Text style={s.headerSub}>📍 Begusarai, Bihar ▾</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2, marginTop: 2 }}>
+              <Icon name="map-marker" size={11} color="rgba(255,255,255,0.85)" />
+              <Text style={s.headerSub}>Begusarai, Bihar</Text>
+              <Icon name="chevron-down" size={11} color="rgba(255,255,255,0.85)" />
+            </View>
           </View>
           <TouchableOpacity style={s.bellBtn}>
-            <Text style={{ fontSize: 16 }}>🔔</Text>
+            <Icon name="bell-outline" size={18} color="#fff" />
             <View style={s.bellDot} />
           </TouchableOpacity>
         </View>
         <View style={s.searchRow}>
           <View style={s.searchBar}>
-            <Text style={{ fontSize: 14 }}>🔍</Text>
+            <Icon name="magnify" size={18} color="#94A3B8" />
             <Text style={{ fontSize: 13, color: '#94A3B8', flex: 1 }}>Search salons...</Text>
           </View>
           <TouchableOpacity style={s.filterBtn}>
-            <Text style={{ fontSize: 13, color: BLUE, fontWeight: '600' }}>⚙ Filter</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+              <Icon name="filter-variant" size={14} color={BLUE} />
+              <Text style={{ fontSize: 13, color: BLUE, fontWeight: '600' }}>Filter</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Live queue banner */}
       <View style={s.queueBanner}>
-        <View style={s.queueIcon}><Text style={{ fontSize: 16 }}>👥</Text></View>
+        <View style={s.queueIcon}>
+          <Icon name="account-group" size={18} color="#fff" />
+        </View>
         <View style={{ flex: 1 }}>
           <Text style={s.queueTitle}>Live queue updates</Text>
           <Text style={s.queueSub}>See how many people are ahead before you book.</Text>
         </View>
-        <Text style={{ fontSize: 16, color: BLUE }}>ℹ</Text>
+        <Icon name="information-outline" size={18} color={BLUE} />
       </View>
 
       {/* Filter chips */}
@@ -126,7 +151,7 @@ export default function SalonListScreen({ navigation, route }: any) {
 
       {/* Bottom info */}
       <View style={s.bottomInfo}>
-        <Text style={{ fontSize: 13 }}>🛡</Text>
+        <Icon name="shield-check-outline" size={14} color="#22C55E" />
         <Text style={{ fontSize: 11, color: '#64748B', flex: 1 }}>You will get a token and we will notify you when it's your turn.</Text>
         <TouchableOpacity><Text style={{ fontSize: 11, color: BLUE, fontWeight: '600' }}>How it works?</Text></TouchableOpacity>
       </View>

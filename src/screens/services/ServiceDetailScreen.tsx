@@ -1,15 +1,29 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const { width } = Dimensions.get('window');
 const BLUE = '#1A47E8';
 
 const INCLUDED = ['Inspection and issue diagnosis','Repair of switches, sockets','Installation of lights, fans','Wiring and re-wiring','MCB, fuse and breaker replacement','Safety check and testing'];
 const EXCLUDED = ['Major rewiring of entire property','Repair of heavy appliances','Civil work (chasing, wall cutting)','Supply or purchase of materials','HT/LT electrical works','Repairs for inverter, UPS'];
 
+const getCategoryIcon = (cat: string) => {
+  const c = cat.toLowerCase();
+  if (c.includes('electrician')) return { name: 'flash', color: '#F59E0B' };
+  if (c.includes('cleaning')) return { name: 'vacuum', color: '#1A47E8' };
+  if (c.includes('ac')) return { name: 'air-conditioner', color: '#0EA5E9' };
+  if (c.includes('appliance')) return { name: 'television-play', color: '#0EA5E9' };
+  if (c.includes('plumb')) return { name: 'wrench', color: '#3B82F6' };
+  if (c.includes('carpenter')) return { name: 'hammer-screwdriver', color: '#8B5CF6' };
+  return { name: 'tools', color: '#1A47E8' };
+};
+
 export default function ServiceDetailScreen({ navigation, route }: any) {
   const category = route?.params?.category || 'Electrician';
   const insets = useSafeAreaInsets();
+
+  const iconInfo = getCategoryIcon(category);
 
   return (
     <View style={[s.container, { paddingTop: insets.top }]}>
@@ -18,19 +32,23 @@ export default function ServiceDetailScreen({ navigation, route }: any) {
       {/* Header */}
       <View style={s.header}>
         <TouchableOpacity style={s.backBtn} onPress={() => navigation.goBack()}>
-          <Text style={{ fontSize: 16, color: '#0F172A' }}>←</Text>
+          <Icon name="arrow-left" size={20} color="#0F172A" />
         </TouchableOpacity>
-        <View style={s.headerIcon}><Text style={{ fontSize: 22 }}>⚡</Text></View>
+        <View style={[s.headerIcon, { backgroundColor: iconInfo.color + '15' }]}>
+          <Icon name={iconInfo.name} size={22} color={iconInfo.color} />
+        </View>
         <Text style={s.headerTitle}>{category} Services</Text>
-        <TouchableOpacity style={s.shareBtn}><Text style={{ fontSize: 16, color: '#0F172A' }}>⬆</Text></TouchableOpacity>
+        <TouchableOpacity style={s.shareBtn}>
+          <Icon name="share-variant-outline" size={20} color="#0F172A" />
+        </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero image */}
         <View style={s.heroImg}>
-          <Text style={s.heroEmoji}>⚡</Text>
+          <Icon name={iconInfo.name} size={72} color={iconInfo.color} style={{ opacity: 0.2 }} />
           <View style={s.verifiedBadge}>
-            <Text style={{ fontSize: 13 }}>🛡</Text>
+            <Icon name="shield-check" size={16} color="#fff" />
             <Text style={{ fontSize: 12, color: '#fff', fontWeight: '700' }}>Verified & Background Checked</Text>
           </View>
         </View>
@@ -38,7 +56,7 @@ export default function ServiceDetailScreen({ navigation, route }: any) {
         <View style={s.body}>
           {/* Rating */}
           <View style={s.ratingRow}>
-            <Text style={{ fontSize: 18 }}>⭐</Text>
+            <Icon name="star" size={20} color="#F59E0B" />
             <Text style={s.rating}>4.8</Text>
             <Text style={s.ratingCount}>(12.8k ratings)</Text>
           </View>
@@ -49,13 +67,15 @@ export default function ServiceDetailScreen({ navigation, route }: any) {
           {/* What's included */}
           <View style={[s.listCard, { borderColor: '#BFDBFE' }]}>
             <View style={s.listHeader}>
-              <Text style={{ fontSize: 16 }}>✅</Text>
+              <Icon name="check-circle" size={20} color={BLUE} />
               <Text style={[s.listTitle, { color: BLUE }]}>What's included</Text>
             </View>
             <View style={s.listGrid}>
               {INCLUDED.map((item, i) => (
                 <View key={i} style={s.listItem}>
-                  <View style={s.checkCircle}><Text style={{ fontSize: 10, color: '#fff' }}>✓</Text></View>
+                  <View style={s.checkCircle}>
+                    <Icon name="check" size={11} color="#fff" />
+                  </View>
                   <Text style={s.listText}>{item}</Text>
                 </View>
               ))}
@@ -65,13 +85,15 @@ export default function ServiceDetailScreen({ navigation, route }: any) {
           {/* What's not included */}
           <View style={[s.listCard, { borderColor: '#FECACA' }]}>
             <View style={s.listHeader}>
-              <Text style={{ fontSize: 16 }}>❌</Text>
+              <Icon name="close-circle" size={20} color="#EF4444" />
               <Text style={[s.listTitle, { color: '#EF4444' }]}>What's not included</Text>
             </View>
             <View style={s.listGrid}>
               {EXCLUDED.map((item, i) => (
                 <View key={i} style={s.listItem}>
-                  <View style={[s.checkCircle, { backgroundColor: '#EF4444' }]}><Text style={{ fontSize: 10, color: '#fff' }}>✕</Text></View>
+                  <View style={[s.checkCircle, { backgroundColor: '#EF4444' }]}>
+                    <Icon name="close" size={11} color="#fff" />
+                  </View>
                   <Text style={s.listText}>{item}</Text>
                 </View>
               ))}
@@ -81,17 +103,17 @@ export default function ServiceDetailScreen({ navigation, route }: any) {
           {/* About this service */}
           <View style={[s.listCard, { borderColor: '#E2E8F0' }]}>
             <View style={s.listHeader}>
-              <Text style={{ fontSize: 16 }}>ℹ️</Text>
+              <Icon name="information-outline" size={20} color={BLUE} />
               <Text style={[s.listTitle, { color: BLUE }]}>About this service</Text>
             </View>
             <View style={s.aboutRow}>
               {[
-                { icon: '🛡', label: 'Skilled &\nVerified Experts' },
-                { icon: '⚡', label: 'Safe &\nReliable Service' },
-                { icon: '⭐', label: 'Satisfaction\nGuaranteed' },
+                { name: 'shield-check-outline', color: '#22C55E', label: 'Skilled &\nVerified Experts' },
+                { name: 'flash-outline', color: '#F59E0B', label: 'Safe &\nReliable Service' },
+                { name: 'thumb-up-outline', color: BLUE, label: 'Satisfaction\nGuaranteed' },
               ].map((a, i) => (
                 <View key={i} style={s.aboutItem}>
-                  <Text style={{ fontSize: 28 }}>{a.icon}</Text>
+                  <Icon name={a.name} size={28} color={a.color} />
                   <Text style={s.aboutLabel}>{a.label}</Text>
                 </View>
               ))}

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const BLUE = '#1A47E8';
 
 const CATEGORIES = [
-  { icon: '📋', label: 'Booking\nIssue' },
-  { icon: '💳', label: 'Payment' },
-  { icon: '👷', label: 'Provider' },
-  { icon: '👤', label: 'Account' },
-  { icon: '❓', label: 'Other' },
+  { icon: 'clipboard-text-outline', label: 'Booking\nIssue' },
+  { icon: 'credit-card-outline', label: 'Payment' },
+  { icon: 'account-hard-hat', label: 'Provider' },
+  { icon: 'account-circle-outline', label: 'Account' },
+  { icon: 'help-circle-outline', label: 'Other' },
 ];
 const FAQS = [
   { q: 'How do I book a salon token?', a: 'Go to Men\'s Salon or Women\'s Parlour, select a salon, tap "Book Now" and confirm your token. You\'ll get notified when it\'s your turn.' },
@@ -27,7 +28,9 @@ export default function HelpCentreScreen({ navigation }: any) {
     <View style={[s.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View style={s.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ fontSize: 18, color: '#0F172A' }}>←</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={20} color="#0F172A" />
+        </TouchableOpacity>
         <Text style={s.headerTitle}>Help Centre</Text>
         <View style={{ width: 24 }} />
       </View>
@@ -35,7 +38,7 @@ export default function HelpCentreScreen({ navigation }: any) {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 16, paddingBottom: 32 }}>
         {/* Search */}
         <View style={s.searchBar}>
-          <Text style={{ fontSize: 16 }}>🔍</Text>
+          <Icon name="magnify" size={20} color="#94A3B8" />
           <TextInput style={s.searchInput} placeholder="Search your issue..." placeholderTextColor="#94A3B8" value={search} onChangeText={setSearch} />
         </View>
 
@@ -44,7 +47,7 @@ export default function HelpCentreScreen({ navigation }: any) {
         <View style={s.catRow}>
           {CATEGORIES.map((c, i) => (
             <TouchableOpacity key={i} style={s.catCard}>
-              <Text style={{ fontSize: 28, marginBottom: 6 }}>{c.icon}</Text>
+              <Icon name={c.icon} size={28} color={BLUE} style={{ marginBottom: 6 }} />
               <Text style={s.catLabel}>{c.label}</Text>
             </TouchableOpacity>
           ))}
@@ -56,7 +59,7 @@ export default function HelpCentreScreen({ navigation }: any) {
           <TouchableOpacity key={i} style={s.faqCard} onPress={() => setExpanded(expanded === i ? null : i)}>
             <View style={s.faqHeader}>
               <Text style={s.faqQ} numberOfLines={expanded === i ? undefined : 1}>{faq.q}</Text>
-              <Text style={{ fontSize: 16, color: BLUE, marginLeft: 8 }}>{expanded === i ? '▲' : '▼'}</Text>
+              <Icon name={expanded === i ? 'chevron-up' : 'chevron-down'} size={20} color={BLUE} />
             </View>
             {expanded === i && <Text style={s.faqA}>{faq.a}</Text>}
           </TouchableOpacity>
@@ -66,14 +69,14 @@ export default function HelpCentreScreen({ navigation }: any) {
         <View style={s.supportSection}>
           <Text style={s.sectionTitle}>Still need help?</Text>
           <TouchableOpacity style={s.supportBtn}>
-            <Text style={{ fontSize: 20 }}>💬</Text>
+            <Icon name="message-text-outline" size={22} color={BLUE} />
             <Text style={s.supportBtnText}>Chat Support</Text>
-            <Text style={{ fontSize: 16, color: '#94A3B8' }}>›</Text>
+            <Icon name="chevron-right" size={20} color="#94A3B8" />
           </TouchableOpacity>
           <TouchableOpacity style={[s.supportBtn, { marginTop: 8 }]}>
-            <Text style={{ fontSize: 20 }}>📞</Text>
+            <Icon name="phone" size={22} color={BLUE} />
             <Text style={s.supportBtnText}>Call Support</Text>
-            <Text style={{ fontSize: 16, color: '#94A3B8' }}>›</Text>
+            <Icon name="chevron-right" size={20} color="#94A3B8" />
           </TouchableOpacity>
         </View>
       </ScrollView>

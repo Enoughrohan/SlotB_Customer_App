@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, StatusBar, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const { width } = Dimensions.get('window');
 const BLUE = '#1A47E8';
 
 const STEPS = ['Booking Details', 'Address', 'Schedule', 'Review & Pay'];
 const HOME_TYPES = [
-  { id:'1bhk', label:'1 BHK', sub:'Up to 600 sq ft', icon:'🏠' },
-  { id:'2bhk', label:'2 BHK', sub:'601 – 1000 sq ft', icon:'🏢' },
-  { id:'3bhk', label:'3 BHK', sub:'1001 – 1500 sq ft', icon:'🏬' },
-  { id:'4bhk', label:'4+ BHK', sub:'1500+ sq ft', icon:'🏰' },
+  { id:'1bhk', label:'1 BHK', sub:'Up to 600 sq ft', icon:'home-variant-outline' },
+  { id:'2bhk', label:'2 BHK', sub:'601 – 1000 sq ft', icon:'office-building-outline' },
+  { id:'3bhk', label:'3 BHK', sub:'1001 – 1500 sq ft', icon:'domain' },
+  { id:'4bhk', label:'4+ BHK', sub:'1500+ sq ft', icon:'castle' },
 ];
 const EXTRAS = [
-  { id:'window', label:'Window Cleaning', sub:'Interior windows cleaning', price:99, icon:'🪟' },
-  { id:'fridge', label:'Refrigerator Cleaning', sub:'Deep cleaning of refrigerator', price:149, icon:'🧊' },
-  { id:'balcony', label:'Balcony Cleaning', sub:'Balcony and utility area cleaning', price:99, icon:'🌿' },
-  { id:'fan', label:'Fan Cleaning', sub:'Cleaning of ceiling fans', price:79, icon:'💨' },
+  { id:'window', label:'Window Cleaning', sub:'Interior windows cleaning', price:99, icon:'window-closed-variant' },
+  { id:'fridge', label:'Refrigerator Cleaning', sub:'Deep cleaning of refrigerator', price:149, icon:'fridge-outline' },
+  { id:'balcony', label:'Balcony Cleaning', sub:'Balcony and utility area cleaning', price:99, icon:'sprout' },
+  { id:'fan', label:'Fan Cleaning', sub:'Cleaning of ceiling fans', price:79, icon:'fan' },
 ];
 
 export default function BookServiceScreen({ navigation, route }: any) {
@@ -40,14 +41,20 @@ export default function BookServiceScreen({ navigation, route }: any) {
 
       {/* Header */}
       <View style={s.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ fontSize: 18, color: '#0F172A' }}>←</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={20} color="#0F172A" />
+        </TouchableOpacity>
         <Text style={s.headerTitle}>Book Service</Text>
-        <TouchableOpacity><Text style={{ fontSize: 20 }}>🎧</Text></TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="headphones" size={20} color={BLUE} />
+        </TouchableOpacity>
       </View>
 
       {/* Service summary card */}
       <View style={s.serviceCard}>
-        <View style={s.serviceIcon}><Text style={{ fontSize: 28 }}>🧹</Text></View>
+        <View style={s.serviceIcon}>
+          <Icon name="vacuum" size={28} color={BLUE} />
+        </View>
         <View style={{ flex: 1 }}>
           <Text style={s.serviceName}>Home Deep Cleaning</Text>
           <Text style={s.serviceSub}>Complete deep cleaning of your home including all rooms and kitchen.</Text>
@@ -56,7 +63,12 @@ export default function BookServiceScreen({ navigation, route }: any) {
         <View style={{ alignItems: 'flex-end' }}>
           <Text style={s.servicePrice}>₹{total}</Text>
           <Text style={{ fontSize: 11, color: '#64748B' }}>Starting from</Text>
-          <View style={s.durationBadge}><Text style={{ fontSize: 11, color: '#22C55E', fontWeight: '600' }}>⏰ 60-90 mins</Text></View>
+          <View style={s.durationBadge}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+              <Icon name="clock-outline" size={11} color="#22C55E" />
+              <Text style={{ fontSize: 11, color: '#22C55E', fontWeight: '600' }}>60-90 mins</Text>
+            </View>
+          </View>
         </View>
       </View>
 
@@ -66,7 +78,7 @@ export default function BookServiceScreen({ navigation, route }: any) {
           <React.Fragment key={i}>
             <View style={s.stepItem}>
               <View style={[s.stepCircle, i <= step && s.stepCircleActive, i < step && s.stepCircleDone]}>
-                {i < step ? <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>✓</Text>
+                {i < step ? <Icon name="check" size={12} color="#fff" />
                   : <Text style={[s.stepNum, i === step && { color: '#fff' }]}>{i + 1}</Text>}
               </View>
               <Text style={[s.stepLabel, i === step && s.stepLabelActive]}>{st}</Text>
@@ -85,7 +97,7 @@ export default function BookServiceScreen({ navigation, route }: any) {
               <View style={[s.homeCardRadio, homeType === ht.id && s.homeCardRadioActive]}>
                 {homeType === ht.id && <View style={s.radioDot} />}
               </View>
-              <Text style={{ fontSize: 32, marginBottom: 6 }}>{ht.icon}</Text>
+              <Icon name={ht.icon} size={32} color={homeType === ht.id ? BLUE : '#64748B'} style={{ marginBottom: 6 }} />
               <Text style={[s.homeCardLabel, homeType === ht.id && { color: BLUE }]}>{ht.label}</Text>
               <Text style={s.homeCardSub}>{ht.sub}</Text>
             </TouchableOpacity>
@@ -98,9 +110,9 @@ export default function BookServiceScreen({ navigation, route }: any) {
           {EXTRAS.map(ex => (
             <TouchableOpacity key={ex.id} style={s.extraRow} onPress={() => toggleExtra(ex.id)}>
               <View style={[s.checkbox, extras.includes(ex.id) && s.checkboxActive]}>
-                {extras.includes(ex.id) && <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>✓</Text>}
+                {extras.includes(ex.id) && <Icon name="check" size={12} color="#fff" />}
               </View>
-              <Text style={{ fontSize: 20, marginRight: 4 }}>{ex.icon}</Text>
+              <Icon name={ex.icon} size={20} color={BLUE} style={{ marginRight: 6 }} />
               <View style={{ flex: 1 }}>
                 <Text style={s.extraLabel}>{ex.label}</Text>
                 <Text style={s.extraSub}>{ex.sub}</Text>
@@ -125,19 +137,25 @@ export default function BookServiceScreen({ navigation, route }: any) {
 
       {/* Bottom tab bar */}
       <View style={[s.tabBar, { paddingBottom: insets.bottom + 8 }]}>
-        {[{icon:'🏠',label:'Home',s:'Home'},{icon:'🧭',label:'Explore',s:'Search'}].map(t=>(
-          <TouchableOpacity key={t.label} style={s.tabItem} onPress={()=>navigation.navigate(t.s)}>
-            <Text style={{fontSize:22}}>{t.icon}</Text><Text style={s.tabLabel}>{t.label}</Text>
-          </TouchableOpacity>
-        ))}
-        <TouchableOpacity style={s.qrPill} onPress={()=>navigation.navigate('ScanQR')}>
-          <Text style={{fontSize:20,color:'#fff'}}>⬛</Text>
+        <TouchableOpacity style={s.tabItem} onPress={() => navigation.navigate('Home')}>
+          <Icon name="home-outline" size={24} color="#64748B" />
+          <Text style={s.tabLabel}>Home</Text>
         </TouchableOpacity>
-        {[{icon:'📋',label:'Bookings',s:'Bookings'},{icon:'👤',label:'Profile',s:'Profile'}].map(t=>(
-          <TouchableOpacity key={t.label} style={s.tabItem} onPress={()=>navigation.navigate(t.s)}>
-            <Text style={{fontSize:22}}>{t.icon}</Text><Text style={s.tabLabel}>{t.label}</Text>
-          </TouchableOpacity>
-        ))}
+        <TouchableOpacity style={s.tabItem} onPress={() => navigation.navigate('Search')}>
+          <Icon name="compass-outline" size={24} color="#64748B" />
+          <Text style={s.tabLabel}>Explore</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={s.qrPill} onPress={() => navigation.navigate('ScanQR')}>
+          <Icon name="qrcode-scan" size={24} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity style={s.tabItem} onPress={() => navigation.navigate('Bookings')}>
+          <Icon name="clipboard-list-outline" size={24} color="#64748B" />
+          <Text style={s.tabLabel}>Bookings</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={s.tabItem} onPress={() => navigation.navigate('Profile')}>
+          <Icon name="account-outline" size={24} color="#64748B" />
+          <Text style={s.tabLabel}>Profile</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
