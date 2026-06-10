@@ -34,5 +34,11 @@
     "@vitejs/plugin-react": "^4.3.4",
     "typescript": "^5.0.0",
     "vite": "^5.4.11"
+  },
+  "overrides": {
+    "react-native-web": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
 }
